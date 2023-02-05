@@ -31,23 +31,15 @@ connection_string = 'InstrumentationKey=228305a9-aa04-43ec-8392-474e39f890f0'
 logger = logging.getLogger(__name__) 
 handler = AzureLogHandler(connection_string = connection_string)
 logger.addHandler(handler)
-# Logging custom Events
-logger.addHandler(AzureEventHandler(connection_string=connection_string))
-# Set the logging level
 logger.setLevel(logging.INFO)
 
 # Metrics
-# TODO: Setup exporter
-stats = stats_module.stats
-view_manager = stats.view_manager
-
 exporter = metrics_exporter.new_metrics_exporter(
   enable_standard_metrics=True, connection_string = connection_string
 )
-view_manager.register_exporter(exporter)
+
 
 # Tracing
-# TODO: Setup tracer
 tracer = Tracer(
     exporter = AzureExporter(
         connection_string = connection_string),
