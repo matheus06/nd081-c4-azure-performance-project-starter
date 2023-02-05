@@ -30,7 +30,6 @@ connection_string = 'InstrumentationKey=228305a9-aa04-43ec-8392-474e39f890f0'
 # TODO: Setup logger
 logger = logging.getLogger(__name__) 
 handler = AzureLogHandler(connection_string = connection_string)
-handler.setFormatter(logging.Formatter('%(traceId)s %(spanId)s %(message)s'))
 logger.addHandler(handler)
 # Logging custom Events
 logger.addHandler(AzureEventHandler(connection_string=connection_string))
