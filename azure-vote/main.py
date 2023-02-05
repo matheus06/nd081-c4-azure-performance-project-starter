@@ -24,7 +24,7 @@ from opencensus.trace.tracer import Tracer
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 
 
-connection_string = "InstrumentationKey=228305a9-aa04-43ec-8392-474e39f890f0;IngestionEndpoint=https://uksouth-1.in.applicationinsights.azure.com/;LiveEndpoint=https://uksouth.livediagnostics.monitor.azure.com/"
+connection_string = 'InstrumentationKey=83d0ceb0-8e36-468c-b6c1-7df767110e80'
 
 # Logging
 # TODO: Setup logger
@@ -39,13 +39,9 @@ logger.setLevel(logging.INFO)
 
 # Metrics
 # TODO: Setup exporter
-stats = stats_module.stats
-view_manager = stats.view_manager
-
 exporter = metrics_exporter.new_metrics_exporter(
   enable_standard_metrics=True, connection_string = connection_string
 )
-view_manager.register_exporter(exporter)
 
 # Tracing
 # TODO: Setup tracer
@@ -117,12 +113,12 @@ def index():
         # Get current values
         vote1 = r.get(button1).decode('utf-8')
         # TODO: use tracer object to trace cat vote
-        with tracer.span(name="cats cote") as span:
-            print("cats vote")
+        tracer.span(name="cats cote")
+        print("cats vote")
         vote2 = r.get(button2).decode('utf-8')
         # TODO: use tracer object to trace dog vote
-        with tracer.span(name="dog vote") as span:
-            print("dogs vote")
+        tracer.span(name="dog vote")
+        print("dogs vote")
 
         # Return index with values
         return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
